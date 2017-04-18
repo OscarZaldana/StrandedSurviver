@@ -9,6 +9,7 @@ public class LevelCreation : MonoBehaviour
     public float detailScale = 5.0f;
     public float baseOffSet;
     List<GameObject> agriculture = new List<GameObject>();
+    List<GameObject> beast = new List<GameObject>();
     Vector3 vertices;
     Mesh mesh;
 
@@ -54,7 +55,21 @@ public class LevelCreation : MonoBehaviour
                     }
                 }
 
-            if(vertices[v].x == 0 && vertices[v].z == 0 && gameObject.transform.position.x == 0 && gameObject.transform.position.z == 0)
+
+            if (vertices[v].y < 2.6 && Mathf.PerlinNoise((vertices[v].x + 5) / 10, (vertices[v].z + 5) / 10) * 10 > 4.6)
+            {
+                GameObject newBeast = BeastPool.getBeast();
+                if (newBeast != null)
+                {
+                    Vector3 beastPos = new Vector3(vertices[v].x + this.transform.position.x, vertices[v].y, vertices[v].z + this.transform.position.z);
+                    newBeast.transform.position = beastPos;
+                    newBeast.SetActive(true);
+                    beast.Add(newBeast);
+
+                }
+            }
+
+            if (vertices[v].x == 0 && vertices[v].z == 0 && gameObject.transform.position.x == 0 && gameObject.transform.position.z == 0)
             {
                 Vector3 shipPos = new Vector3(vertices[v].x + this.transform.position.x, vertices[v].y, vertices[v].z + this.transform.position.z);
                 GameObject s = (GameObject)Instantiate(ship, shipPos, Quaternion.identity);

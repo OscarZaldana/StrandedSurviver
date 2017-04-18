@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager audioInstance;
 
     Transform audioListener;
-    public Transform playerT;
+    Transform playerT;
 
     SoundList library;
 
@@ -50,7 +50,7 @@ public class AudioManager : MonoBehaviour
             newSfx2Dsource.transform.parent = transform;
 
             audioListener = FindObjectOfType<AudioListener>().transform;
-            playerT = FindObjectOfType<AudioManager>().transform;
+            playerT = FindObjectOfType<BaseStatesOfPlayer>().transform;
 
             masterVolumePercent = PlayerPrefs.GetFloat("master vol", masterVolumePercent);
             sfxVolumePercent = PlayerPrefs.GetFloat("sfx vol", sfxVolumePercent);
@@ -120,7 +120,6 @@ public class AudioManager : MonoBehaviour
         sfx2DSource.pitch = Random.Range(0.05f, 1);
         sfx2DSource.PlayOneShot(library.GetClipFromName(soundName), sfxVolumePercent * masterVolumePercent);
     }
-
 
     IEnumerator AnimateMusicCrossfade(float duration)
     {
