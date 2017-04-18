@@ -5,7 +5,7 @@ using System.Collections;
 public class UIManager : MonoBehaviour 
 {
 
-    public BaseStatesOfPlayer baseStates;
+    BaseStatesOfPlayer baseStates;
 
     public Text rawMeat;
     public Text cookedMeat;
@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     public Text spears;
     public Text rawFruit;
 	public Text cookedFruit;
-    public GameObject materialPanel;
+    //public GameObject materialPanel;
     public bool panelOn;
 
     public CharacterMovesLikeABoss cb;
@@ -26,20 +26,20 @@ public class UIManager : MonoBehaviour
         baseStates = FindObjectOfType<BaseStatesOfPlayer>();
         panelOn = false;
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		bullets.text = "" + cb.currentAmmo;
-        rawMeat.text = "" + cb.currentRawMeat;
-		cookedMeat.text = "" + cb.currentCookedMeat;
-		minerals.text = "" + cb.currentMinerals;
-        currentWeapon.text = "" + baseStates.currentWeapon;
-		spears.text = "" + cb.currentSpears;
-		rawFruit.text = "" + cb.currentRawFruit;
-		cookedFruit.text = "" + cb.currentCookedFruit;
 
-        if(panelOn)
+    // Update is called once per frame
+    void Update()
+    {
+        bullets.text = "" + cb.currentAmmo;
+        rawMeat.text = "" + cb.currentRawMeat;
+        cookedMeat.text = "" + cb.currentCookedMeat;
+        minerals.text = "" + cb.currentMinerals;
+        currentWeapon.text = "" + baseStates.currentWeapon;
+        spears.text = "" + cb.currentSpears;
+        rawFruit.text = "" + cb.currentRawFruit;
+        cookedFruit.text = "" + cb.currentCookedFruit;
+    }
+       /* if(panelOn)
         {
 
             materialPanel.SetActive(true);
@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
         {
             materialPanel.SetActive(false);
         }
-	}
+	}*/
 
     /*public void ChangePanel()
     {

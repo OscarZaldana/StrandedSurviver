@@ -6,11 +6,6 @@ using UnityEngine.UI;
 [Serializable]
 public class CharacterMovesLikeABoss : MonoBehaviour
 {
-    public Vector3 pos;
-    public Rigidbody rig;
-	public float speed = 5;
-    public float walkSpeed = 5;
-	public float sprintSpeed = 15;
 
  //  public  Animator anim;
 	public int currentRawMeat = 0;
@@ -31,7 +26,6 @@ public class CharacterMovesLikeABoss : MonoBehaviour
     public GameObject bulletPrefab = null;
 
 	public GameObject spearPrefab = null;
-    public Vector3 vel;
 
     public GameObject spawnPoint;
 
@@ -41,10 +35,6 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 
     void Start ()
     {
-        rig = GetComponent<Rigidbody>();
-		speed = speed * Time.deltaTime;
-		sprintSpeed = sprintSpeed * Time.deltaTime;
-		walkSpeed = walkSpeed * Time.deltaTime;
         baseStates = GetComponent<BaseStatesOfPlayer>();
 
         // loseText.SetActive(false);
@@ -62,30 +52,22 @@ public class CharacterMovesLikeABoss : MonoBehaviour
     {
         baseStates.weaponStrength = 2;
 
-		rig.velocity = pos * speed;
-		vel = rig.velocity;
-
         if (Input.GetKeyDown(switchWepInput))
         {
             SwitchWeapon();
         }
 
-		if (energy.CurrentVal <= 5) 
-		{
-			energy.CurrentVal = 4;
-			health.CurrentVal -= Time.deltaTime;
-		} else
-			health.CurrentVal = health.CurrentVal;
-			energy.CurrentVal -= Time.deltaTime;
-
-		if (Input.GetKey (KeyCode.LeftShift)) 
-		{
-			speed = sprintSpeed;
-			energy.CurrentVal -= Time.deltaTime * 1.5f;
-		} else
-			speed = walkSpeed;
-			energy.CurrentVal = energy.CurrentVal;
-
+        if (energy.CurrentVal <= 5)
+        {
+            energy.CurrentVal = 4;
+            health.CurrentVal -= Time.deltaTime;
+        }
+        else
+        {
+            health.CurrentVal = health.CurrentVal;
+            energy.CurrentVal -= Time.deltaTime;
+            energy.CurrentVal = energy.CurrentVal;
+        }
 
 
 		if (Input.GetButtonDown("Fire1") && currentAmmo > 0 && baseStates.currentWeapon == Weapons.Gun)
@@ -99,37 +81,6 @@ public class CharacterMovesLikeABoss : MonoBehaviour
             Instantiate(spearPrefab, spawnPoint.transform.position, transform.rotation);
 			currentSpears -= 1;
         }
-
-       //if (Input.GetButtonDown("Fire1") && baseStates.currentWeapon == Weapons.Punch)
-       // {
-        //    anim.SetTrigger("HandChop");
-       // }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            pos = gameObject.transform.rotation * Vector3.forward;
-        }
-
-        else if (Input.GetKey(KeyCode.A))
-        {
-            pos = gameObject.transform.rotation * Vector3.left;
-        }
-
-        else if (Input.GetKey(KeyCode.S))
-        {
-            pos = gameObject.transform.rotation * Vector3.back;
-        }
-
-        else if (Input.GetKey(KeyCode.D))
-        {
-            pos = gameObject.transform.rotation * Vector3.right;
-        }
-
-        else
-        {
-            pos = Vector3.zero;
-        }
-   
 
 		if (Input.GetKeyDown (KeyCode.Alpha1) && currentRawFruit > 0) 
 		{
@@ -161,9 +112,6 @@ public class CharacterMovesLikeABoss : MonoBehaviour
 
 		if (health.CurrentVal <=0)
 		{
-			speed = 0;
-			walkSpeed = 0;
-			sprintSpeed = 0;
 			deathScreen.SetActive (true);
 		}
 

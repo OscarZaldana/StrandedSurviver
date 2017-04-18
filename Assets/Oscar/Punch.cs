@@ -23,9 +23,9 @@ public class Punch : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetButtonDown("Fire1") && baseStates.currentWeapon == Weapons.Unarmed)
+		if (Input.GetButtonDown("Fire1"))// && baseStates.currentWeapon == Weapons.Unarmed)
         {
-            anim.SetTrigger("HandChop");
+            anim.SetTrigger("Attack");
         }
 
     }
